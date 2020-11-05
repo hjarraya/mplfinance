@@ -57,7 +57,17 @@ def _check_and_prepare_data(data, config):
 
     return dates, opens, highs, lows, closes, volumes
 
-
+def _label_validator(label_value):
+    if isinstance(label_value,str):
+        return True
+    elif not isinstance(label_value,(tuple,list)):
+        return False
+    
+    for label in label_value:
+        if not isinstance(label,str):
+            return False
+    return True
+        
 def _mav_validator(mav_value):
     ''' 
     Value for mav (moving average) keyword may be:

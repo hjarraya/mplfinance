@@ -782,27 +782,36 @@ def _addplot_columns(panid,panels,ydata,apdict,xdates,config):
         ax = apdict['ax']
 
     aptype = apdict['type']
+    labels=apdict['labels']
+    if isinstance(labels,str):
+        labels = [labels] # convert to list
     if aptype == 'scatter':
         size  = apdict['markersize']
         mark  = apdict['marker']
         color = apdict['color']
         alpha = apdict['alpha']
         if isinstance(mark,(list,tuple,np.ndarray)):
-            _mscatter(xdates,ydata,ax=ax,m=mark,s=size,color=color,alpha=alpha)
+            _mscatter(xdates,ydata,ax=ax,m=mark,s=size,color=color,alpha=alpha) #labels in this function needs to be added
         else:
             ax.scatter(xdates,ydata,s=size,marker=mark,color=color,alpha=alpha)
+            if labels is not None:
+                ax.legend(labels=apdict['labels'])
     elif aptype == 'bar':
         width  = 0.8 if apdict['width'] is None else apdict['width']
         bottom = apdict['bottom']
         color  = apdict['color']
         alpha  = apdict['alpha']
         ax.bar(xdates,ydata,width=width,bottom=bottom,color=color,alpha=alpha)
+        if labels is not None:
+            ax.legend(labels=labels)
     elif aptype == 'line':
         ls     = apdict['linestyle']
         color  = apdict['color']
         width  = apdict['width'] if apdict['width'] is not None else 1.6*config['_width_config']['line_width']
         alpha  = apdict['alpha']
         ax.plot(xdates,ydata,linestyle=ls,color=color,linewidth=width,alpha=alpha)
+        if labels is not None:
+            ax.legend(labels=labels)
     else:
         raise ValueError('addplot type "'+str(aptype)+'" NOT yet supported.')
 
@@ -885,6 +894,9 @@ def _valid_addplot_kwargs():
     valid_types = ('line','scatter','bar', 'ohlc', 'candle')
 
     vkwargs = {
+        'labels'      : { "Default"     : None,
+                          "Validator"   : _label_validator },
+        
         'scatter'     : { 'Default'     : False,
                           'Validator'   : lambda value: isinstance(value,bool) },
 
