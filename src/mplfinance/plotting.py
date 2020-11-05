@@ -782,7 +782,7 @@ def _addplot_columns(panid,panels,ydata,apdict,xdates,config):
         ax = apdict['ax']
 
     aptype = apdict['type']
-    labels=apdict['labels']
+    labels = apdict['labels']
     if isinstance(labels,str):
         labels = [labels] # convert to list
     if aptype == 'scatter':
@@ -795,7 +795,7 @@ def _addplot_columns(panid,panels,ydata,apdict,xdates,config):
         else:
             ax.scatter(xdates,ydata,s=size,marker=mark,color=color,alpha=alpha)
             if labels is not None:
-                ax.legend(labels=apdict['labels'])
+                ax.legend(labels=labels)
     elif aptype == 'bar':
         width  = 0.8 if apdict['width'] is None else apdict['width']
         bottom = apdict['bottom']
