@@ -29,7 +29,7 @@ from mplfinance._utils import _mscatter
 
 from mplfinance import _styles
 
-from mplfinance._arg_validators import _check_and_prepare_data, _mav_validator
+from mplfinance._arg_validators import _check_and_prepare_data, _mav_validator, _label_validator
 from mplfinance._arg_validators import _process_kwargs, _validate_vkwargs_dict
 from mplfinance._arg_validators import _kwarg_not_implemented, _bypass_kwarg_validation
 from mplfinance._arg_validators import _hlines_validator, _vlines_validator
