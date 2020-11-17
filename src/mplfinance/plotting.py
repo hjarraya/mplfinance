@@ -785,6 +785,7 @@ def _addplot_columns(panid,panels,ydata,apdict,xdates,config):
     labels = apdict['labels']
     if isinstance(labels,str):
         labels = [labels] # convert to list
+    print('aptype=',aptype,' labels=',labels)
     if aptype == 'scatter':
         size  = apdict['markersize']
         mark  = apdict['marker']
@@ -793,9 +794,17 @@ def _addplot_columns(panid,panels,ydata,apdict,xdates,config):
         if isinstance(mark,(list,tuple,np.ndarray)):
             _mscatter(xdates,ydata,ax=ax,m=mark,s=size,color=color,alpha=alpha) #labels in this function needs to be added
         else:
-            ax.scatter(xdates,ydata,s=size,marker=mark,color=color,alpha=alpha)
+            #h,l = ax.get_legend_handles_labels()
+            #print('before h=',h)
+            #print('before l=',h)
+            if isinstance(labels,(tuple,list)):
+                labels = labels[0]
+            ax.scatter(xdates,ydata,s=size,marker=mark,color=color,alpha=alpha,label=labels)
             if labels is not None:
-                ax.legend(labels=labels)
+                ax.legend(frameon=True)#labels=labels)
+            #h,l = ax.get_legend_handles_labels()
+            #print('after  h=',h)
+            #print('after  l=',h)
     elif aptype == 'bar':
         width  = 0.8 if apdict['width'] is None else apdict['width']
         bottom = apdict['bottom']
@@ -809,7 +818,7 @@ def _addplot_columns(panid,panels,ydata,apdict,xdates,config):
         color  = apdict['color']
         width  = apdict['width'] if apdict['width'] is not None else 1.6*config['_width_config']['line_width']
         alpha  = apdict['alpha']
-        ax.plot(xdates,ydata,linestyle=ls,color=color,linewidth=width,alpha=alpha)
+        ax.plot(xdates,ydata,xdates,ydata*1.15,linestyle=ls,color=color,linewidth=width,alpha=alpha)
         if labels is not None:
             ax.legend(labels=labels)
     else:
