@@ -925,7 +925,7 @@ def _construct_hline_collections(hlines,minx,maxx):
     co = hconfig['colors']
     ls = hconfig['linestyle']
     al = hconfig['alpha']
-    lcollection = LineCollection(lines,colors=co,linewidths=lw,linestyles=ls,antialiaseds=(0,),alpha=al)
+    lcollection = LineCollection(lines,colors=co,linewidths=lw,linestyles=ls,antialiaseds=(0,),alpha=al,label=['HL_A','HL_B'])
     return lcollection
 
 

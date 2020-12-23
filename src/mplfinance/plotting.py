@@ -755,6 +755,7 @@ def _addplot_collections(panid,panels,apdict,xdates,config):
 
     for coll in collections:
         ax.add_collection(coll)
+        ax.legend(frameon=True)#labels=labels)
     if apdict['mav'] is not None:
         apmavprices = _plot_mav(ax,config,xdates,c,apdict['mav'])
     ax.autoscale_view()
