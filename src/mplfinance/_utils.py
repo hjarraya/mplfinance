@@ -461,12 +461,14 @@ def _construct_candlestick_collections(dates, opens, highs, lows, closes, market
     rangeCollection = LineCollection(rangeSegments,
                                      colors=wickcolor,
                                      linewidths=lw,
+                                     zorder=None
                                      )
 
     barCollection = PolyCollection(barVerts,
                                    facecolors=colors,
                                    edgecolors=edgecolor,
-                                   linewidths=lw
+                                   linewidths=lw,
+                                   zorder=None
                                    )
 
     return [rangeCollection, barCollection]

@@ -808,6 +808,7 @@ def _addplot_columns(panid,panels,ydata,apdict,xdates,config):
     else:
         ax = apdict['ax']
 
+    print('apdict["zorder"]=',apdict['zorder'])
     aptype = apdict['type']
     if aptype == 'scatter':
         size  = apdict['markersize']
@@ -817,19 +818,19 @@ def _addplot_columns(panid,panels,ydata,apdict,xdates,config):
         if isinstance(mark,(list,tuple,np.ndarray)):
             _mscatter(xdates,ydata,ax=ax,m=mark,s=size,color=color,alpha=alpha)
         else:
-            ax.scatter(xdates,ydata,s=size,marker=mark,color=color,alpha=alpha)
+            ax.scatter(xdates,ydata,s=size,marker=mark,color=color,alpha=alpha,zorder=apdict['zorder'])
     elif aptype == 'bar':
         width  = 0.8 if apdict['width'] is None else apdict['width']
         bottom = apdict['bottom']
         color  = apdict['color']
         alpha  = apdict['alpha']
-        ax.bar(xdates,ydata,width=width,bottom=bottom,color=color,alpha=alpha)
+        ax.bar(xdates,ydata,width=width,bottom=bottom,color=color,alpha=alpha,zorder=apdict['zorder'])
     elif aptype == 'line':
         ls     = apdict['linestyle']
         color  = apdict['color']
         width  = apdict['width'] if apdict['width'] is not None else 1.6*config['_width_config']['line_width']
         alpha  = apdict['alpha']
-        ax.plot(xdates,ydata,linestyle=ls,color=color,linewidth=width,alpha=alpha)
+        ax.plot(xdates,ydata,linestyle=ls,color=color,linewidth=width,alpha=alpha,zorder=apdict['zorder'])
     else:
         raise ValueError('addplot type "'+str(aptype)+'" NOT yet supported.')
 
@@ -966,6 +967,9 @@ def _valid_addplot_kwargs():
 
         'ax'          : {'Default'      : None,
                          'Validator'    : lambda value: isinstance(value,mpl_axes.Axes) },
+
+        'zorder'      : {'Default'      : None,
+                         'Validator'    : lambda value: isinstance(value,(int,float)) },
     }
 
     _validate_vkwargs_dict(vkwargs)
