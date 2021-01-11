@@ -1129,9 +1129,12 @@ class IntegerIndexDateTimeFormatter(Formatter):
         # https://matplotlib.org/gallery/ticks_and_spines/date_index_formatter.html
         ix = int(np.round(x))
          
-        if ix >= self.len or ix < 0:
-            date = None
-            dateformat = ''
+        if ix >= self.len:
+            date = np.busday_offset(mdates.num2date(self.dates[-1]).date(), ix - self.len + 1).astype(datetime.datetime)
+            dateformat = date.strftime(self.fmt)
+        elif ix < 0:
+            date = np.busday_offset(mdates.num2date(self.dates[0]).date(), ix).astype(datetime.datetime)
+            dateformat = date.strftime(self.fmt)
         else:
             date = self.dates[ix]
             dateformat = mdates.num2date(date).strftime(self.fmt)
