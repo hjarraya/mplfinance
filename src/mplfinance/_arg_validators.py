@@ -30,7 +30,8 @@ def _check_and_prepare_data(data, config):
         raise TypeError('Expect data.index as DatetimeIndex')
 
     if (len(data.index) > config['warn_too_much_data'] and
-        config['type']!='scatter' and config['type']!='line'):
+        (config['type']=='candle' or config['type']!='ohlc' or config['type']=='hollow_and_filled')
+       ):
         warnings.warn('\n\n ================================================================= '+
                       '\n\n   WARNING: YOU ARE PLOTTING SO MUCH DATA THAT IT MAY NOT BE'+
                         '\n            POSSIBLE TO SEE DETAILS (Candles, Ohlc-Bars, Etc.)'+
