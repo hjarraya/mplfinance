@@ -30,14 +30,13 @@ def _check_and_prepare_data(data, config):
         raise TypeError('Expect data.index as DatetimeIndex')
 
     if (len(data.index) > config['warn_too_much_data'] and
-        (config['type']=='candle' or config['type']!='ohlc' or config['type']=='hollow_and_filled')
+        (config['type']=='candle' or config['type']=='ohlc' or config['type']=='hollow_and_filled')
        ):
         warnings.warn('\n\n ================================================================= '+
                       '\n\n   WARNING: YOU ARE PLOTTING SO MUCH DATA THAT IT MAY NOT BE'+
                         '\n            POSSIBLE TO SEE DETAILS (Candles, Ohlc-Bars, Etc.)'+
                         '\n   For more information see:'+
-                        '\n   - https://github.com/matplotlib/mplfinance/issues/346#issuecomment-789220591'+
-                        '\n   - https://github.com/matplotlib/mplfinance/issues/307#issuecomment-752702973'+
+                        '\n   - https://github.com/matplotlib/mplfinance/wiki/Plotting-Too-Much-Data'+
                         '\n   '+
                         '\n   TO SILENCE THIS WARNING, set `type=\'line\'` in `mpf.plot()`'+
                         '\n   OR set kwarg `warn_too_much_data=N` where N is an integer '+
